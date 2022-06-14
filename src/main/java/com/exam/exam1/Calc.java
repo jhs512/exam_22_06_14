@@ -24,14 +24,12 @@ public class Calc {
         int bracketCount = 0;
         boolean isPlus = true;
         for (int i = 0; i < s.length(); i++) {
-            if ( s.charAt(i) == '(' ) {
+            if (s.charAt(i) == '(') {
                 bracketCount++;
-            }
-            else if ( s.charAt(i) == ')' ) {
+            } else if (s.charAt(i) == ')') {
                 bracketCount--;
-            }
-            else if (s.charAt(i) == '+' || s.charAt(i) == '-') {
-                if ( bracketCount > 0 ) {
+            } else if (s.charAt(i) == '+' || s.charAt(i) == '-') {
+                if (bracketCount > 0) {
                     continue;
                 }
 
@@ -43,7 +41,7 @@ public class Calc {
             }
         }
 
-        if( splitIndex != -1 ) {
+        if (splitIndex != -1) {
             String head = s.substring(0, splitIndex).trim();
             String tail = s.substring(splitIndex + 1).trim();
 
@@ -59,14 +57,12 @@ public class Calc {
         boolean isMulti = true;
 
         for (int i = 0; i < s.length(); i++) {
-            if ( s.charAt(i) == '(' ) {
+            if (s.charAt(i) == '(') {
                 bracketCount++;
-            }
-            else if ( s.charAt(i) == ')' ) {
+            } else if (s.charAt(i) == ')') {
                 bracketCount--;
-            }
-            else if (s.charAt(i) == '*' || s.charAt(i) == '/') {
-                if ( bracketCount > 0 ) {
+            } else if (s.charAt(i) == '*' || s.charAt(i) == '/') {
+                if (bracketCount > 0) {
                     continue;
                 }
 
@@ -78,7 +74,7 @@ public class Calc {
             }
         }
 
-        if( splitIndex != -1 ) {
+        if (splitIndex != -1) {
             String head = s.substring(0, splitIndex).trim();
             String tail = s.substring(splitIndex + 1).trim();
 
@@ -104,20 +100,24 @@ public class Calc {
         int nonNumberOperatorCount = 0;
 
         for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '(' || s.charAt(i) == '+' || s.charAt(i) == '-' || s.charAt(i) == '*' || s.charAt(i) == '/') {
+            if (s.charAt(i) == '(') {
                 nonNumberOperatorCount++;
+            } else if (s.charAt(i) == '+' || s.charAt(i) == '-' || s.charAt(i) == '*' || s.charAt(i) == '/') {
+                if (s.charAt(i + 1) == ' ') {
+                    nonNumberOperatorCount++;
+                }
             }
         }
 
         if (nonNumberOperatorCount == 1) {
             // 단순연산 : -
-            if (s.indexOf('-') != -1) return "-";
+            if (s.indexOf(" - ") != -1) return "-";
             // 단순연산 : +
-            if (s.indexOf('+') != -1) return "+";
+            if (s.indexOf(" + ") != -1) return "+";
             // 단순연산 : *
-            if (s.indexOf('*') != -1) return "*";
+            if (s.indexOf(" * ") != -1) return "*";
             // 단순연산 : /
-            if (s.indexOf('/') != -1) return "/";
+            if (s.indexOf(" / ") != -1) return "/";
         }
 
         return "splitInTwo";
