@@ -90,4 +90,9 @@ public class AppTest {
     public void 음수더하기__음수1_더하기_음수1() {
         assertEquals(-2, new Calc().run("-1 + -1"));
     }
+
+    @Test
+    public void 음수더하기__음수1_더하기_음수1_더하기_음수1_더하기_음수1() {
+        assertEquals(-4, new Calc().run("-1 + -1 + -1 + -1"));
+    }
 }

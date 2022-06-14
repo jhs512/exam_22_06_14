@@ -1,6 +1,41 @@
 package com.exam.exam1;
 
 public class Calc {
+    private String getOperatorCode(String s) {
+        try {
+            Integer.parseInt(s);
+
+            return "number";
+        } catch (NumberFormatException e) {
+
+        }
+
+        int nonNumberOperatorCount = 0;
+
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                nonNumberOperatorCount++;
+            } else if (s.charAt(i) == '+' || s.charAt(i) == '-' || s.charAt(i) == '*' || s.charAt(i) == '/') {
+                if (s.charAt(i + 1) == ' ') {
+                    nonNumberOperatorCount++;
+                }
+            }
+        }
+
+        if (nonNumberOperatorCount == 1) {
+            // 단순연산 : -
+            if (s.indexOf(" - ") != -1) return "-";
+            // 단순연산 : +
+            if (s.indexOf(" + ") != -1) return "+";
+            // 단순연산 : *
+            if (s.indexOf(" * ") != -1) return "*";
+            // 단순연산 : /
+            if (s.indexOf(" / ") != -1) return "/";
+        }
+
+        return "splitInTwo";
+    }
+
     public int run(String s) {
 
         s = stripOuterBrackets(s);
@@ -30,6 +65,10 @@ public class Calc {
                 bracketCount--;
             } else if (s.charAt(i) == '+' || s.charAt(i) == '-') {
                 if (bracketCount > 0) {
+                    continue;
+                }
+
+                if ( s.charAt(i + 1) != ' ' ) {
                     continue;
                 }
 
@@ -86,41 +125,6 @@ public class Calc {
         }
 
         return 0;
-    }
-
-    private String getOperatorCode(String s) {
-        try {
-            Integer.parseInt(s);
-
-            return "number";
-        } catch (NumberFormatException e) {
-
-        }
-
-        int nonNumberOperatorCount = 0;
-
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '(') {
-                nonNumberOperatorCount++;
-            } else if (s.charAt(i) == '+' || s.charAt(i) == '-' || s.charAt(i) == '*' || s.charAt(i) == '/') {
-                if (s.charAt(i + 1) == ' ') {
-                    nonNumberOperatorCount++;
-                }
-            }
-        }
-
-        if (nonNumberOperatorCount == 1) {
-            // 단순연산 : -
-            if (s.indexOf(" - ") != -1) return "-";
-            // 단순연산 : +
-            if (s.indexOf(" + ") != -1) return "+";
-            // 단순연산 : *
-            if (s.indexOf(" * ") != -1) return "*";
-            // 단순연산 : /
-            if (s.indexOf(" / ") != -1) return "/";
-        }
-
-        return "splitInTwo";
     }
 
     private String stripOuterBrackets(String s) {
